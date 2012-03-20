@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+function output() {
+  echo -e "$*"
+}
+function info() {
+  output "\033[32m${*}\033[0m"
+}
+function error() {
+  output "\033[31m${1}\033[0m" && exit 1
+}
+
+if [[ $# != 1 ]]; then
+  echo "Usage: git update <branch>" && exit 1
+fi
+
+current_branch=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+source=`git config --get branch.master.updatesource`
+branch_to_update=$1
+branch_remote=`git config --get branch.$branch_to_update.remote`
+
+if [[ `git config --get remote.$source.url` == '' ]]; then
+  error "Configured updatesource for $branch_to_update, '$source', doesn't exist!"
+fi
+
+git show-ref --verify --quiet refs/heads/$branch_to_update || error "branch $branch_to_update does not exist!"
+
+if [[ $branch_remote == $source ]]; then
+  error "Both updatesource and $branch_to_update's default remote are set to '$source'. This is probably not what you mean!"
+fi
+
+set -o errexit    # From here on out, exit on error
+git stash
+git checkout $1
+git pull --ff-only $source $1
+git push $branch_remote $branch_to_update
+info "$branch_to_update successfully updated from remote '$source'"
+git checkout $current_branch
+git stash pop
