@@ -38,7 +38,10 @@ fi
 # ======= Here's the meat of the script: ==========
 set -o errexit    # From here on out, exit on error
 if [[ $branch_to_update != $current_branch ]]; then
-  git stash
+  if ! git diff-index --quiet HEAD; then
+    git stash
+    stashed=true
+  fi
   git checkout $branch_to_update
 fi
 
@@ -48,5 +51,5 @@ info "$branch_to_update successfully updated from remote '$updatesource'"
 
 if [[ $branch_to_update != $current_branch ]]; then
   git checkout $current_branch
-  git stash pop
+  [ $stashed ] && git stash pop
 fi
