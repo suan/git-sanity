@@ -14,10 +14,8 @@ These commands involve stashing and pushing and are potentially dangerous - make
 
 
 Commands
-========
-
-git update \<branch\>
----------------------
+--------
+### git update \<branch\>
 Pull the latest changes from `master` of an upstream repo into any `<branch>`, then push it to your fork, all **without leaving your curent branch**.
 
 - Specify which is the upstream remote by doing `git config sanity.updatesource <upstream remote name>` from within your project, or by adding the following to the bottom of your project's .git/config:
