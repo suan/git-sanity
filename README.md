@@ -34,17 +34,3 @@ Pull the latest changes from `master` of an upstream repo into any `<branch>`, t
     remote = <your fork's remote name>
     ```
   If this is not specified, **it defaults to 'origin'**; which should be what you want most of the time.
-
-For example, if your .git/config looks like
-
-```
-[remote "origin"]
-	url = git@git.myco.com:suan/myproj.git
-	fetch = +refs/heads/*:refs/remotes/origin/*
-[remote "upstream"]
-	url = git://git.myco.com/myco/myproj.git
-	fetch = +refs/heads/*:refs/remotes/origin/*
-...
-```
-
-and `upstream` is the upstream remote, you should setup git-update by doing `git config update.source upstream`.
