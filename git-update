@@ -15,25 +15,38 @@ if [[ $# != 1 ]]; then
 fi
 
 current_branch=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-source=`git config --get branch.master.updatesource`
+updatesource=`git config --get sanity.updatesource`
+if [[ $updatesource == '' ]]; then updatesource='upstream'; fi
 branch_to_update=$1
 branch_remote=`git config --get branch.$branch_to_update.remote`
+if [[ $branch_remote == '' ]]; then branch_remote='origin'; fi
 
-if [[ `git config --get remote.$source.url` == '' ]]; then
-  error "Configured updatesource for $branch_to_update, '$source', doesn't exist!"
+
+
+if [[ `git config --get remote.$updatesource.url` == '' ]]; then
+  error "source '$updatesource' for git-update doesn't exist! Do \`git config sanity.updatesource <upstream remote name>\` to change it."
 fi
 
 git show-ref --verify --quiet refs/heads/$branch_to_update || error "branch $branch_to_update does not exist!"
 
-if [[ $branch_remote == $source ]]; then
-  error "Both updatesource and $branch_to_update's default remote are set to '$source'. This is probably not what you mean!"
+if [[ $branch_remote == $updatesource ]]; then
+  error "Both updatesource and $branch_to_update's default remote are set to '$updatesource'. This is probably not what you mean!"
 fi
 
+
+
+# ======= Here's the meat of the script: ==========
 set -o errexit    # From here on out, exit on error
-git stash
-git checkout $1
-git pull --ff-only $source $1
+if [[ $branch_to_update != $current_branch ]]; then
+  git stash
+  git checkout $branch_to_update
+fi
+
+git pull $updatesource master
 git push $branch_remote $branch_to_update
-info "$branch_to_update successfully updated from remote '$source'"
-git checkout $current_branch
-git stash pop
+info "$branch_to_update successfully updated from remote '$updatesource'"
+
+if [[ $branch_to_update != $current_branch ]]; then
+  git checkout $current_branch
+  git stash pop
+fi
