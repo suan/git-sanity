@@ -6,7 +6,7 @@ Usage
 -----
 Simply copy over the scripts you're interested in to somewhere on your `$PATH`. They can then be invoked without the dash, for example: `git update`.
 
-Disclaimer (Don't sue me)!!
+Disclaimer
 ------------
 These commands involve stashing and pushing and are potentially dangerous - make sure you read the instructions first; and try to grok the code a little, so you won't be completely helpless if something goes wrong. ;-)
 
@@ -15,8 +15,8 @@ These commands involve stashing and pushing and are potentially dangerous - make
 
 Commands
 --------
-### git update \<branch\>
-Pull the latest changes from `master` of an upstream repo into any `<branch>`, then push it to your fork, all **without leaving your curent branch**.
+### git update [branch]
+Pull the latest changes from `master` of an upstream repo into any `<branch>`, then push it to your fork, all **without leaving your curent branch**. If no `<branch>` argument is given, the current branch will be updated.
 
 - Specify which is the upstream remote by doing `git config sanity.updatesource <upstream remote name>` from within your project, or by adding the following to the bottom of your project's .git/config:
 

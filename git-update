@@ -10,14 +10,19 @@ function error() {
   output "\033[31m${1}\033[0m" && exit 1
 }
 
-if [[ $# != 1 ]]; then
-  echo "Usage: git update <branch>" && exit 1
+if [[ $# > 1 ]]; then
+  echo "Usage: git update [branch]" && exit 1
 fi
 
 current_branch=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
 updatesource=`git config --get sanity.updatesource`
 if [[ $updatesource == '' ]]; then updatesource='upstream'; fi
-branch_to_update=$1
+
+if [[ $# == 1 ]]; then
+  branch_to_update=$1
+else
+  branch_to_update=$current_branch
+fi
 branch_remote=`git config --get branch.$branch_to_update.remote`
 if [[ $branch_remote == '' ]]; then branch_remote='origin'; fi
 
