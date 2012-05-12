@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Possible formats:
+# (t|b|bug_|task_|)1234((_|)_short_description|)
+
+current_branch=`git-current-branch`
+regex="^(t|b|bug_|task_|)([0-9]+)"
+
+[[ $current_branch =~ $regex ]]
+echo "${BASH_REMATCH[2]}"
