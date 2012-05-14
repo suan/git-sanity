@@ -4,7 +4,13 @@
 # (t|b|bug_|task_|)1234((_|)_short_description|)
 
 current_branch=`git-current-branch`
-regex="^(t|b|bug_|task_|)([0-9]+)"
 
-[[ $current_branch =~ $regex ]]
-echo "${BASH_REMATCH[2]}"
+[[ $current_branch =~ ^(t|b|bug_|task_)?([0-9]+) ]]
+task_number="${BASH_REMATCH[2]}"
+
+if [[ $task_number -eq "" ]]; then
+  echo "No task number detected" >&2
+  exit 1
+else
+  echo $task_number
+fi
