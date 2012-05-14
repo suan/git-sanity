@@ -36,13 +36,19 @@ Pull the latest changes from `master` of an upstream repo into any `<branch>`, t
 ### git current-branch
 Print the name of the current git branch. A very useful way to use this is to setup a very short bash alias like `alias t='git current branch'` in your `.bash_aliases`, so that you can save time by typing commands like ``git push origin `t` ``, instead of `git push origin 123456_some_feature_description`.
 
-### git current-task
+### git current-task [-l | --link]
 **Depends on**: git current-branch
 
 At work you probably use some form of bug tracking system and have to name your git feature branches with the corresponding task's number, for example, `123456_some_feature_description`, where 123456 is the task ID.
 
-This command prints out the current Task ID based on the current branch name, which you can in turn use to open the current task's webpage, for example. Supported branch-naming formats are as such, where the task ID is within the `<>`:
+Prints out the task ID based on the current branch name, which you can in turn use to open the current task's webpage, for example. Supported branch-naming formats are as such, where the task ID is within the `<>`:
 
 ```
 (t|b|bug_|task_|)<1234>(short_description|)
+```
+
+The `-l` or `--link` flag can be added to print out the URL to the task. Beforehand, the URL pattern needs to be configured in your git config with '<>' as a placeholder for the task ID, for example:
+
+```
+git config sanity.tasksurl https://acunote.myco.com/tasks/<>
 ```

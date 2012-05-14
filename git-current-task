@@ -3,14 +3,33 @@
 # Possible formats:
 # (t|b|bug_|task_|)1234((_|)_short_description|)
 
+function die {
+  if [[ $1 ]]; then
+    echo $1 >&2
+  else
+    echo "Usage: $0 [-l|--link]" >&2
+  fi
+  exit 1
+}
+
+[[ $# < 2 ]] || die
+
 current_branch=`git-current-branch`
 
 [[ $current_branch =~ ^(t|b|bug_|task_)?([0-9]+) ]]
 task_number="${BASH_REMATCH[2]}"
 
 if [[ $task_number -eq "" ]]; then
-  echo "No task number detected" >&2
-  exit 1
+  die "No task number detected"
+elif [[ $# == 1 ]]; then
+  if [[ $1 == "-l" ]] || [[ $1 == "--link" ]]; then
+    url_pattern=`git config --get sanity.tasksurl`
+    [[ $url_pattern =~ "<>" ]] || die "bad tasks url format"
+    echo ${url_pattern/<>/$task_number}
+  else
+    die
+  fi
 else
   echo $task_number
 fi
+
