@@ -4,7 +4,7 @@ An extra set of git commands, particularly helpful in dealing with github-fork w
 
 Usage
 -----
-Simply copy over the scripts you're interested in to somewhere on your `$PATH`. They can then be invoked without the dash, for example: `git update`.
+Simply copy over the scripts you're interested in to somewhere on your `$PATH` (Some scripts depend on others so make sure you don't omit any needed ones). They can then be invoked without the dash, for example: `git update`.
 
 Disclaimer
 ------------
@@ -37,10 +37,12 @@ Pull the latest changes from `master` of an upstream repo into any `<branch>`, t
 Print the name of the current git branch. A very useful way to use this is to setup a very short bash alias like `alias t='git current branch'` in your `.bash_aliases`, so that you can save time by typing commands like ``git push origin `t` ``, instead of `git push origin 123456_some_feature_description`.
 
 ### git current-task
+**Depends on**: git current-branch
+
 At work you probably use some form of bug tracking system and have to name your git feature branches with the corresponding task's number, for example, `123456_some_feature_description`, where 123456 is the task ID.
 
 This command prints out the current Task ID based on the current branch name, which you can in turn use to open the current task's webpage, for example. Supported branch-naming formats are as such, where the task ID is within the `<>`:
 
 ```
-(t|b|bug_|task_|)<1234>((_|)_short_description|)
+(t|b|bug_|task_|)<1234>(short_description|)
 ```
