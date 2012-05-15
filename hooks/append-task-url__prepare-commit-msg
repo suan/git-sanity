@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Appends the current bugtracker task ID (or link, if sanity.taskurl is specified in your git config)
+# to the end of your commit messages.
+#
+# To use, rename this file to 'prepare-commit-msg' and place it in your .git/hooks directory.
+#
+# Depends on: git-current-task
+
+if [[ `git current-task --link 2>/dev/null` ]]; then
+  task_line="`git current-task --link`"
+elif [[ `git current-task 2>/dev/null` ]]; then
+  task_line="Task: `git current-task`"
+fi
+
+if [[ $task_line ]]; then
+  if [[ $2 == "message" ]]; then
+    echo -e "\n$task_line" >> $1
+  else
+    perl -pi -e "print \"\n\n\".'${task_line}' if $. == 1" $1
+  fi
+fi
