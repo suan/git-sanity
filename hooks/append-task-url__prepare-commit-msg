@@ -14,9 +14,9 @@ elif [[ `git current-task 2>/dev/null` ]]; then
 fi
 
 if [[ $task_line ]]; then
-  if [[ $2 == "message" ]]; then
-    echo -e "\n$task_line" >> $1
-  else
+  if [[ $2 == "" ]]; then
     perl -pi -e "print \"\n\n\".'${task_line}' if $. == 1" $1
+  else
+    echo -e "\n$task_line" >> $1
   fi
 fi
