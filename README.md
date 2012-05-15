@@ -1,6 +1,6 @@
 git-sanity
 ===============
-An extra set of git commands, particularly helpful in dealing with github-fork workflows.
+An extra set of git commands and hooks, particularly helpful in rigid, fork-based, corporate git workflows.
 
 Usage
 -----
@@ -46,9 +46,22 @@ Prints out the task ID based on the current branch name, which you can in turn u
 ```
 (t|b|bug_|task_|)<1234>(short_description|)
 ```
-
-The `-l` or `--link` flag can be added to print out the URL to the task. Beforehand, the URL pattern needs to be configured in your git config with '<>' as a placeholder for the task ID, for example:
+##### Options
+**-l or --link**: Print out the URL to the task. Beforehand, the URL pattern needs to be configured in your git config with '<>' as a placeholder for the task ID, for example:
 
 ```
 git config sanity.tasksurl https://acunote.myco.com/tasks/<>
 ```
+
+
+
+Hooks
+-----
+### append-task-url
+**Type (rename to)**: prepare-commit-msg
+
+**Depends On**: git-current-task
+
+Appends the current bugtracker task number, or link if `sanity.taskurl` is specified in your git config (see **git current-task**), to the end of your commit messages.
+
+Caveat: You won't be able to just quit your editor to cancel a commit since the commit message won't be empty. Instead, you'll have to delete the appended task number/link and save the commit message file.
