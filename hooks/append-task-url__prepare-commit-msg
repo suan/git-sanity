@@ -10,7 +10,7 @@
 if [[ `git current-task --link 2>/dev/null` ]]; then
   task_line="`git current-task --link`"
 elif [[ `git current-task 2>/dev/null` ]]; then
-  task_line="Task: `git current-task`"
+  task_line="Task `git current-task`"
 fi
 
 if [[ $task_line ]]; then
