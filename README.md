@@ -65,3 +65,8 @@ Hooks
 Appends the current bugtracker task number, or link if `sanity.taskurl` is specified in your git config (see **git current-task**), to the end of your commit messages.
 
 Caveat: You won't be able to just quit your editor to cancel a commit since the commit message won't be empty. Instead, you'll have to delete the appended task number/link and save the commit message file.
+
+
+License
+-------
+git-sanity is distributed under the [BSD License](http://www.opensource.org/licenses/BSD-3-Clause)
