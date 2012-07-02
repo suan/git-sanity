@@ -36,7 +36,7 @@ Pull the latest changes from `master` of an upstream repo into any `<branch>`, t
 ### git current-branch
 Print the name of the current git branch. A very useful way to use this is to setup a very short bash alias like `alias t='git current branch'` in your `.bash_aliases`, so that you can save time by typing commands like ``git push origin `t` ``, instead of `git push origin 123456_some_feature_description`.
 
-### git current-task [-l | --link]
+### git current-task [-l | --link | -o | --open]
 **Depends on**: git current-branch
 
 At work you probably use some form of bug tracking system and have to name your git feature branches with the corresponding task's number, for example, `123456_some_feature_description`, where 123456 is the task ID.
@@ -52,6 +52,9 @@ Prints out the task ID based on the current branch name, which you can in turn u
 ```
 git config sanity.tasksurl https://acunote.myco.com/tasks/<>
 ```
+
+**-o or --open**: Open the URL for the task. [local-open][local-open-link] is supported. (The URL pattern needs to be configured in your git config - see **"-l or --link"**)
+
 
 
 
@@ -70,3 +73,8 @@ Caveat: You won't be able to just quit your editor to cancel a commit since the 
 License
 -------
 git-sanity is distributed under the [BSD License](http://www.opensource.org/licenses/BSD-3-Clause)
+
+
+
+
+[local-open-link]: https://github.com/suan/local-open
