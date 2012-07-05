@@ -18,16 +18,21 @@ function get_url {
   url=${url_pattern/<>/$task_number}
 }
 
-[[ $# < 2 ]] || die
+[[ $# < 3 ]] || die
 
-current_branch=`git-current-branch`
+last_arg="${@: -1}"
+if [[ ! $last_arg == -* ]]; then
+  branch=$last_arg
+else
+  branch=`git-current-branch`
+fi
 
-[[ $current_branch =~ ^(t|b|bug_|task_)?([0-9]+) ]]
+[[ $branch =~ ^(t|b|bug_|task_)?([0-9]+) ]]
 task_number="${BASH_REMATCH[2]}"
 
 if [[ $task_number -eq "" ]]; then
   die "No task number detected"
-elif [[ $# == 1 ]]; then
+else
   get_url
   if [[ $1 == "-l" ]] || [[ $1 == "--link" ]]; then
     echo $url
@@ -42,9 +47,7 @@ elif [[ $# == 1 ]]; then
 
     $open_cmd $url
   else
-    die
+    echo $task_number
   fi
-else
-  echo $task_number
 fi
 

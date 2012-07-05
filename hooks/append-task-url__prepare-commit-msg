@@ -5,12 +5,12 @@
 #
 # To use, rename this file to 'prepare-commit-msg' and place it in your .git/hooks directory.
 #
-# Depends on: git-current-task
+# Depends on: git-task
 
-if [[ `git current-task --link 2>/dev/null` ]]; then
-  task_line="`git current-task --link`"
-elif [[ `git current-task 2>/dev/null` ]]; then
-  task_line="Task `git current-task`"
+if [[ `git task --link 2>/dev/null` ]]; then
+  task_line="`git task --link`"
+elif [[ `git task 2>/dev/null` ]]; then
+  task_line="Task `git task`"
 fi
 
 if [[ $task_line ]]; then
