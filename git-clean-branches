@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+function output() {
+  echo -e "$*"
+}
+function info() {
+  output "\033[32m${*}\033[0m"
+}
+function error() {
+  output "\033[31m${1}\033[0m" && exit 1
+}
+
+if [[ $# > 0 ]]; then
+  echo "Usage: git clean-branches" && exit 1
+fi
+
+# TODO: Check if branches have stashes
+git branch --merged master | grep -v master
+printf "Delete the above branches? [y/N]: "
+read response
+if [[ $response == "y" ]]; then
+  git branch --merged master | grep -v master | xargs git branch -d
+else
+  error "Canceled"
+fi

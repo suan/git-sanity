@@ -36,6 +36,9 @@ Pull the latest changes from `master` of an upstream repo into any `<branch>`, t
 ### git current-branch
 Print the name of the current git branch. A very useful way to use this is to setup a very short bash alias like `alias t='git current branch'` in your `.bash_aliases`, so that you can save time by typing commands like ``git push origin `t` ``, instead of `git push origin 123456_some_feature_description`.
 
+### git clean-branches
+Delete all local branches which have already been merged into master. Prompts before deletion.
+
 ### git task [-l | --link | -o | --open] [branch]
 **Depends on**: git current-branch
 
