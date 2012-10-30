@@ -47,7 +47,7 @@ At work you probably use some form of bug tracking system and have to name your 
 Prints out the task ID based on the branch name, which you can in turn use to open the task's webpage, for example. Supported branch-naming formats are as such, where the task ID is within the `<>`:
 
 ```
-(t|b|bug_|task_|)<1234>(short_description|)  -OR-  (short_description|)_(t|b|bug_|task_|)<1234>
+(t|b|bug_|task_|)<1234>(short_description|)  -OR-  (short_description|)_(t|b|bug_|task_)<1234>
 ```
 
 If no branch name is provided, assumes the current one.
