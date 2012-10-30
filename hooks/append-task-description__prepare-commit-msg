@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Appends the current bugtracker task ID and description to the end of your commit messages.
+#
+# To use, rename this file to 'prepare-commit-msg' and place it in your .git/hooks directory.
+#
+# Depends on: git-task
+
+if [[ `git task 2>/dev/null` ]]; then
+  task_line="`git task --pretty`"
+fi
+
+if [[ $task_line ]]; then
+  if [[ $2 == "" ]]; then
+    perl -pi -e "print \"\n\n\".'${task_line}' if $. == 1" $1
+  else
+    echo -e "\n$task_line" >> $1
+  fi
+fi

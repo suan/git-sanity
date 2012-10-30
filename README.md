@@ -74,6 +74,15 @@ Hooks
 
 Appends the current bugtracker task number, or link if `sanity.taskurl` is specified in your git config (see **git task**), to the end of your commit messages.
 
+### append-task-description
+**Type (rename to)**: prepare-commit-msg
+
+**Depends On**: git-task
+
+Appends the current bugtracker task number and description to the end of your commit messages.
+
+---
+
 Caveat: You won't be able to just quit your editor to cancel a commit since the commit message won't be empty. Instead, you'll have to delete the appended task number/link and save the commit message file.
 
 
