@@ -39,7 +39,7 @@ Print the name of the current git branch. A very useful way to use this is to se
 ### git clean-branches
 Delete all local branches which have already been merged into master. Prompts before deletion.
 
-### git task [-l | --link | -o | --open] [branch]
+### git task [-p | --pretty | -l | --link | -o | --open] [branch]
 **Depends on**: git current-branch
 
 At work you probably use some form of bug tracking system and have to name your git feature branches with the corresponding task's number, for example, `123456_some_feature_description`, where 123456 is the task ID.
@@ -47,11 +47,13 @@ At work you probably use some form of bug tracking system and have to name your 
 Prints out the task ID based on the branch name, which you can in turn use to open the task's webpage, for example. Supported branch-naming formats are as such, where the task ID is within the `<>`:
 
 ```
-(t|b|bug_|task_|)<1234>(short_description|)
+(t|b|bug_|task_|)<1234>(short_description|)  -OR-  (short_description|)_(t|b|bug_|task_|)<1234>
 ```
 
 If no branch name is provided, assumes the current one.
 ##### Options
+**-p or --pretty**: Print out task number and description based on branchname in a human-readable format. For example, a branchname of `new_front_page__t12345` will result in `Task: 12345: new front page`.
+
 **-l or --link**: Print out the URL to the task. Beforehand, the URL pattern needs to be configured in your git config with '<>' as a placeholder for the task ID, for example:
 
 ```
