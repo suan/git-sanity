@@ -38,20 +38,18 @@ else
 fi
 
 # See if task number is at start of branch name
-[[ $branch =~ ^(t|b|bug_|task_|TR-)?([0-9]+) ]]
+[[ $branch =~ ^(t|b|bug_|task_|TR-)?([a-zA-Z0-9]+) ]]
 task_number="${BASH_REMATCH[2]}"
 task_number_token="${BASH_REMATCH[1]}${BASH_REMATCH[2]}"
 
 # See if it's at the end
 if [[ $task_number -eq "" ]]; then
-  [[ $branch =~ (^|_|-)(t|b|bug_|task_|TR-)([0-9]+)$ ]]
+  [[ $branch =~ (^|_|-)(t|b|bug_|task_|TR-)([a-zA-Z0-9]+)$ ]]
   task_number="${BASH_REMATCH[3]}"
   task_number_token="${BASH_REMATCH[2]}${BASH_REMATCH[3]}"
 fi
 
-
-
-if [[ $task_number -eq "" ]]; then
+if [[ $task_number == "" ]]; then
   if [[ $1 == "-p" ]] || [[ $1 == "--pretty" ]]; then
     get_description
     echo $description
